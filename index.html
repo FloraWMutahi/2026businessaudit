@@ -1957,8 +1957,8 @@ body.is-registered .nav-back { display: inline-flex; }
               <input class="field-input" type="text" id="first_name" name="first_name" placeholder="e.g. Wanjiru" autocomplete="given-name" required />
             </div>
             <div class="field-group">
-              <label class="field-label" for="last_name">Last name</label>
-              <input class="field-input" type="text" id="last_name" name="last_name" placeholder="e.g. Kamau" autocomplete="family-name" />
+              <label class="field-label" for="last_name">Last name *</label>
+              <input class="field-input" type="text" id="last_name" name="last_name" placeholder="e.g. Kamau" autocomplete="family-name" required />
             </div>
           </div>
 
@@ -1978,8 +1978,8 @@ body.is-registered .nav-back { display: inline-flex; }
           </div>
 
           <div class="field-group" id="experienceGroup" hidden>
-            <label class="field-label" for="years_experience" id="experienceLabel">How long have you been in this role? *</label>
-            <select class="field-select" id="years_experience" name="years_experience">
+            <label class="field-label" for="years_experience" id="experienceLabel">How long have you been in your current business or role? *</label>
+            <select class="field-select" id="years_experience" name="years_experience" required>
               <option value="" selected disabled>Select one</option>
               <option value="Less than 1 year">Less than 1 year</option>
               <option value="1 to 3 years">1 to 3 years</option>
@@ -1990,8 +1990,8 @@ body.is-registered .nav-back { display: inline-flex; }
           </div>
 
           <div class="field-group">
-            <label class="field-label" for="phone">WhatsApp number <span class="field-optional">(needed only for WhatsApp reminders)</span></label>
-            <input class="field-input" type="tel" id="phone" name="phone" placeholder="+254 712 345 678" autocomplete="tel" />
+            <label class="field-label" for="phone">Phone number * <span class="field-optional">(WhatsApp number preferred)</span></label>
+            <input class="field-input" type="tel" id="phone" name="phone" placeholder="+254 712 345 678" autocomplete="tel" required />
           </div>
 
           <label class="checkbox-row" for="whatsapp_consent">
@@ -2410,7 +2410,9 @@ function initRegistrationForm() {
       const v = profileSel.value;
       expLabel.textContent = v === "Corporate professional"
         ? "How long have you been a corporate professional? *"
-        : "How long have you been running your business? *";
+        : v === "Business owner"
+          ? "How long have you been running your business? *"
+          : "How long have you been in your current business or role? *";
       expGroup.hidden = !v;
     });
   }
@@ -2442,12 +2444,13 @@ function initRegistrationForm() {
     const years = form.years_experience ? form.years_experience.value : "";
 
     if (!firstName) return showError("Please enter your first name.");
+    if (!lastName) return showError("Please enter your last name.");
     if (!validEmail(email)) return showError("Please enter a valid email address.");
     if (!profile) return showError("Please choose your professional profile.");
-    if (!years) return showError("Please tell us how long you have been in that role.");
-    if (consent && !ph.typed) return showError("Please enter your WhatsApp number, or untick the WhatsApp box.");
+    if (!years) return showError("Please tell us how long you have been in your current business or role.");
+    if (!ph.typed) return showError("Please enter your phone number.");
     if (ph.typed && !ph.ok) {
-      return showError("Please check your WhatsApp number and make sure the right country is selected (or start it with + and your country code).");
+      return showError("Please check your phone number and make sure the right country is selected (or start it with + and your country code).");
     }
 
     // Exactly the field names GHL expects (UTM fields are extra and ignored unless mapped)
