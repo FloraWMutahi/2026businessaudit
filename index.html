@@ -1110,6 +1110,8 @@ button, input, select {
   min-height: 50px;
 }
 
+[hidden] { display: none !important; }
+
 .field-select option {
   background: var(--espresso);
   color: var(--cream);
@@ -1966,6 +1968,28 @@ body.is-registered .nav-back { display: inline-flex; }
           </div>
 
           <div class="field-group">
+            <label class="field-label" for="professional_profile">Professional profile *</label>
+            <select class="field-select" id="professional_profile" name="professional_profile" required>
+              <option value="" selected disabled>Select one</option>
+              <option value="Corporate professional">Corporate professional</option>
+              <option value="Business owner">Business owner</option>
+              <option value="Both">Both (employed and running a business)</option>
+            </select>
+          </div>
+
+          <div class="field-group" id="experienceGroup" hidden>
+            <label class="field-label" for="years_experience" id="experienceLabel">How long have you been in this role? *</label>
+            <select class="field-select" id="years_experience" name="years_experience">
+              <option value="" selected disabled>Select one</option>
+              <option value="Less than 1 year">Less than 1 year</option>
+              <option value="1 to 3 years">1 to 3 years</option>
+              <option value="3 to 5 years">3 to 5 years</option>
+              <option value="5 to 10 years">5 to 10 years</option>
+              <option value="More than 10 years">More than 10 years</option>
+            </select>
+          </div>
+
+          <div class="field-group">
             <label class="field-label" for="phone">WhatsApp number <span class="field-optional">(needed only for WhatsApp reminders)</span></label>
             <input class="field-input" type="tel" id="phone" name="phone" placeholder="+254 712 345 678" autocomplete="tel" />
           </div>
@@ -2378,6 +2402,18 @@ function initRegistrationForm() {
   const form = document.getElementById("auditForm");
   if (!form) return;
   const btn = document.getElementById("submitBtn");
+  const profileSel = document.getElementById("professional_profile");
+  const expGroup = document.getElementById("experienceGroup");
+  const expLabel = document.getElementById("experienceLabel");
+  if (profileSel && expGroup && expLabel) {
+    profileSel.addEventListener("change", () => {
+      const v = profileSel.value;
+      expLabel.textContent = v === "Corporate professional"
+        ? "How long have you been a corporate professional? *"
+        : "How long have you been running your business? *";
+      expGroup.hidden = !v;
+    });
+  }
   const errBox = document.getElementById("formError");
   const btnLabel = btn.textContent;
   let submitting = false;
@@ -2402,9 +2438,13 @@ function initRegistrationForm() {
     const email = cleanEmail(form.email.value);
     const consent = document.getElementById("whatsapp_consent").checked;
     const ph = readPhone();
+    const profile = form.professional_profile ? form.professional_profile.value : "";
+    const years = form.years_experience ? form.years_experience.value : "";
 
     if (!firstName) return showError("Please enter your first name.");
     if (!validEmail(email)) return showError("Please enter a valid email address.");
+    if (!profile) return showError("Please choose your professional profile.");
+    if (!years) return showError("Please tell us how long you have been in that role.");
     if (consent && !ph.typed) return showError("Please enter your WhatsApp number, or untick the WhatsApp box.");
     if (ph.typed && !ph.ok) {
       return showError("Please check your WhatsApp number and make sure the right country is selected (or start it with + and your country code).");
@@ -2416,7 +2456,9 @@ function initRegistrationForm() {
       last_name: lastName,
       email: email,
       phone: ph.ok ? ph.phone : "",
-      whatsapp_consent: consent ? "Yes" : "No"
+      whatsapp_consent: consent ? "Yes" : "No",
+      professional_profile: profile,
+      years_experience: years
     };
     UTM_KEYS.forEach((k) => { payload[k] = storeGet(k) || ""; });
 
