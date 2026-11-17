@@ -47,7 +47,7 @@
             radial-gradient(40% 50% at 90% 30%, rgba(255, 156, 169, 0.35), transparent),
             radial-gradient(50% 50% at 50% 100%, rgba(229, 204, 170, 0.5), transparent),
             #FAF5ED;
-  --g-text: linear-gradient(90deg, #E5CCAA 0%, #C49B64 45%, #FF9CA9 100%);
+  --g-text: linear-gradient(90deg, #FFF1DC 0%, #F5D7A8 50%, #FFC9D0 100%);
 
   /* Glassmorphism */
   --glass: rgba(250, 245, 237, 0.06);
@@ -165,6 +165,12 @@ button, input, select {
   background-clip: text;
   color: transparent;
 }
+
+/* Lift gradient text off the dark backgrounds */
+.hero-title em, .h2-title em, .hero-tagline, .cd-num {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+.h2-title--dark em { filter: none; }
 
 .lead-text {
   font-size: 1.125rem;
@@ -908,9 +914,9 @@ button, input, select {
 .host-arch::after {
   content: "";
   position: absolute;
-  inset: 14px -14px -14px 14px;
+  inset: -12px;
   border: 1.5px solid var(--gold);
-  border-radius: 200px 200px 24px 24px;
+  border-radius: 212px 212px 36px 36px;
   pointer-events: none;
 }
 
