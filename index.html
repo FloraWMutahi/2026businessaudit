@@ -1476,13 +1476,15 @@ body { background-color: var(--cocoa); }
 
 /* Hero: light background, dark text */
 .hero {
-  background: radial-gradient(55% 65% at 75% 35%, rgba(255, 156, 169, 0.30) 0%, transparent 62%),
-              radial-gradient(50% 60% at 15% 85%, rgba(255, 218, 183, 0.55) 0%, transparent 65%),
-              linear-gradient(160deg, #FFFBF6 0%, #FAF0E6 50%, #FBE3E0 100%);
+  /* Flora brand: warm cream and greige, peach glow, only a hint of blush behind the photo */
+  background: radial-gradient(40% 50% at 76% 40%, rgba(255, 156, 169, 0.14) 0%, transparent 65%),
+              radial-gradient(55% 60% at 85% 85%, rgba(255, 218, 183, 0.50) 0%, transparent 70%),
+              radial-gradient(45% 55% at 10% 90%, rgba(255, 232, 200, 0.55) 0%, transparent 70%),
+              linear-gradient(160deg, #FBF8F4 0%, #F4EEE7 55%, #FFF0E0 100%);
   color: var(--ink);
 }
-.hero .orb--blush { background: rgba(255, 156, 169, 0.22); }
-.hero .orb--gold { background: rgba(255, 218, 183, 0.45); }
+.hero .orb--blush { background: rgba(255, 156, 169, 0.10); }
+.hero .orb--gold { background: rgba(255, 218, 183, 0.40); }
 .hero .live-pill { background: rgba(255, 255, 255, 0.65); border-color: rgba(157, 112, 109, 0.3); color: var(--rose-deep); }
 .hero .eyebrow { color: var(--rose-deep); }
 .hero .hero-title { color: var(--ink); }
@@ -1499,8 +1501,8 @@ body { background-color: var(--cocoa); }
 .hero .btn-ghost:hover { background: rgba(255, 255, 255, 0.55); border-color: var(--rose); }
 .hero .micro-proof { color: rgba(46, 31, 34, 0.75); }
 .hero .arch-frame {
-  background: linear-gradient(180deg, rgba(196, 155, 100, 0.55), rgba(255, 156, 169, 0.35));
-  box-shadow: 0 30px 60px rgba(123, 83, 81, 0.22), 0 0 70px rgba(255, 156, 169, 0.25);
+  background: linear-gradient(180deg, rgba(196, 155, 100, 0.55), rgba(255, 218, 183, 0.45));
+  box-shadow: 0 30px 60px rgba(90, 70, 60, 0.18), 0 0 70px rgba(255, 218, 183, 0.35);
 }
 .hero .session-card {
   background: rgba(255, 255, 255, 0.82); border-color: rgba(157, 112, 109, 0.28);
