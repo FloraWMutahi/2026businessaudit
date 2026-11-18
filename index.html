@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The 2026 Business Audit | Free Live Masterclass with Flora Mutahi</title>
+  <title>Before You Plan 2027, Face the Truth About 2026 | Free Live Masterclass with Flora Mutahi</title>
   <meta name="description" content="Stop. Strengthen. Build. A free live masterclass for business owners with Flora Mutahi, Thursday 3 December 2026 (4:00 to 5:30 PM EAT), covering Money, Customers, Systems, People, and You, the Founder." />
 
   <!-- Link preview for WhatsApp, LinkedIn, Facebook, X -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="The 2026 Business Audit | Stop. Strengthen. Build. | Free with Flora Mutahi" />
+  <meta property="og:title" content="Before You Plan 2027, Face the Truth About 2026 | Free with Flora Mutahi" />
   <meta property="og:description" content="A free live masterclass for business owners. Thursday 3 December 2026, 4:00 to 5:30 PM EAT on Zoom. Five areas: Money, Customers, Systems, People and You, the Founder." />
   <meta name="twitter:card" content="summary" />
   <link rel="icon" href="favicon.png" type="image/png" />
@@ -1545,6 +1545,8 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
   .hero .cd-num { font-size: 1.75rem; }
   .hero .countdown-grid { gap: 6px; }
 }
+/* Longer event name: smaller headline so it fits */
+.hero-title--long { font-size: clamp(2.1rem, 4.1vw, 3.6rem); line-height: 1.08; }
   </style>
 </head>
 <body>
@@ -1553,7 +1555,7 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
     <div class="container nav-inner">
       <a href="#hero" class="brand-mark" aria-label="Flora Mutahi Home">
         <span class="brand-mark__name">FLORA MUTAHI</span>
-        <span class="brand-mark__tag">The 2026 Business Audit</span>
+        <span class="brand-mark__tag">Free Live Masterclass</span>
       </a>
 
       <nav class="nav-links" aria-label="Primary">
@@ -1587,8 +1589,8 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
 
         <span class="eyebrow">For business owners closing out 2026</span>
 
-        <h1 class="hero-title">
-          The 2026 Business <em>Audit</em>
+        <h1 class="hero-title hero-title--long">
+          Before You Plan 2027, <em>Face the Truth About 2026</em>
         </h1>
         <span class="hero-tagline">Stop. Strengthen. Build.</span>
 
@@ -1668,7 +1670,7 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
         <div class="session-card">
           <div>
             <span class="session-card__tag">Stop. Strengthen. Build.</span>
-            <div class="session-card__title">The 2026 Business Audit</div>
+            <div class="session-card__title">Before You Plan 2027, Face the Truth About 2026</div>
           </div>
           <span class="session-card__pill">90 Mins • Free</span>
         </div>
@@ -2044,7 +2046,7 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
           You’re in, <em id="registrantName">Founder</em>.
         </h1>
         <p class="lead-text" style="margin-bottom: 20px;">
-          Your seat is reserved for <strong>The 2026 Business Audit</strong> on <strong>Thursday, 3 December 2026 (4:00 – 5:30 PM EAT)</strong>.
+          Your seat is reserved for <strong>Before You Plan 2027, Face the Truth About 2026</strong> on <strong>Thursday, 3 December 2026 (4:00 – 5:30 PM EAT)</strong>.
         </p>
         <p style="color: var(--gold-light); font-size: 0.98rem;">
           Your Zoom link is on its way to your inbox (and WhatsApp if you ticked the box). If you don’t see it in a few minutes, check your Promotions or Spam folder. Add the session to your calendar now so you don’t miss it:
@@ -2104,12 +2106,12 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
 
   <script>
 /**
- * The 2026 Business Audit with Flora Mutahi, Thu 3 Dec 2026
+ * Before You Plan 2027, Face the Truth About 2026 with Flora Mutahi, Thu 3 Dec 2026
  * Form follows the GHL brief: first_name, last_name, email, phone (E.164), whatsapp_consent
  */
 
 const WEBINAR_CONFIG = {
-  name: "The 2026 Business Audit",
+  name: "Before You Plan 2027, Face the Truth About 2026",
   startISO: "2026-12-03T16:00:00+03:00",
   durationMinutes: 90,
   ghlWebhookUrl: "https://services.leadconnectorhq.com/hooks/HWjJC6XSMPEGg1jFsnq3/webhook-trigger/3fecf93e-c244-47a2-b268-66b5f7eef560"
@@ -2300,7 +2302,7 @@ function closeRegistration() {
   card.innerHTML = `
     <div class="form-header" style="margin-bottom:0;">
       <h3>Registration is closed</h3>
-      <p>The 2026 Business Audit has started. Follow Flora Mutahi for the next session.</p>
+      <p>Before You Plan 2027, Face the Truth About 2026 has started. Follow Flora Mutahi for the next session.</p>
       <p style="margin-top:16px;"><a class="btn-gold btn-gold--sm" href="https://floramutahi.com/" target="_blank" rel="noopener">Visit floramutahi.com</a></p>
     </div>`;
 }
@@ -2479,7 +2481,7 @@ function showThankYou(firstName) {
   const nameEl = document.getElementById("registrantName");
   if (nameEl && firstName) nameEl.textContent = firstName;
   document.body.classList.add("is-registered");
-  document.title = "You’re Registered | The 2026 Business Audit with Flora Mutahi";
+  document.title = "You’re Registered | Before You Plan 2027, Face the Truth About 2026";
   window.scrollTo(0, 0);
 }
 
@@ -2488,13 +2490,13 @@ function initBackButton() {
   if (!back) return;
   back.addEventListener("click", () => {
     document.body.classList.remove("is-registered");
-    document.title = "The 2026 Business Audit | Free Live Masterclass with Flora Mutahi";
+    document.title = "Before You Plan 2027, Face the Truth About 2026 | Free Live Masterclass with Flora Mutahi";
     window.scrollTo(0, 0);
   });
 }
 
 function initCalendarButtons() {
-  const title = "The 2026 Business Audit with Flora Mutahi";
+  const title = "Before You Plan 2027, Face the Truth About 2026 with Flora Mutahi";
   const gcalBtn = document.getElementById("btnGoogleCal");
   if (gcalBtn) {
     const details = encodeURIComponent(
@@ -2511,7 +2513,7 @@ function initCalendarButtons() {
       const icsContent = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//Flora Mutahi//The 2026 Business Audit//EN",
+        "PRODID:-//Flora Mutahi//Before You Plan 2027//EN",
         "CALSCALE:GREGORIAN",
         "METHOD:PUBLISH",
         "BEGIN:VEVENT",
@@ -2525,7 +2527,7 @@ function initCalendarButtons() {
         "BEGIN:VALARM",
         "TRIGGER:-PT60M",
         "ACTION:DISPLAY",
-        "DESCRIPTION:The 2026 Business Audit starts in 1 hour",
+        "DESCRIPTION:Before You Plan 2027, Face the Truth About 2026 starts in 1 hour",
         "END:VALARM",
         "END:VEVENT",
         "END:VCALENDAR"
