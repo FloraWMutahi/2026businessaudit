@@ -2027,6 +2027,10 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
             <label class="field-label" for="phone">Phone number * <span class="field-optional">(WhatsApp number preferred)</span></label>
             <input class="field-input" type="tel" id="phone" name="phone" placeholder="+254 712 345 678" autocomplete="tel" required />
           </div>
+          <div class="field-group">
+            <label class="field-label" for="phone_confirm">Confirm phone number *</label>
+            <input class="field-input" type="tel" id="phone_confirm" placeholder="Type the same number again" autocomplete="off" inputmode="tel" required onpaste="return false" ondrop="return false" />
+          </div>
 
           <fieldset class="field-group channel-choice" id="channelChoice">
             <legend class="field-label">Where should we send your Zoom link and reminders? *</legend>
@@ -2276,6 +2280,20 @@ function readPhone() {
   return { phone: p, ok: validE164(p), typed: true };
 }
 
+// Compares the phone box with the "Confirm phone number" box.
+// Ignores spaces, dashes, a leading 0 and the country code, so 0712 345 678 matches +254712345678.
+function phonesMatch() {
+  const dial = iti ? ((iti.getSelectedCountryData() || {}).dialCode || "") : "";
+  const norm = (v) => {
+    let d = String(v || "").replace(/\D/g, "");
+    if (dial && d.startsWith(dial) && d.length > dial.length + 6) d = d.slice(dial.length);
+    return d.replace(/^0+/, "");
+  };
+  const a = norm(document.getElementById("phone").value);
+  const b = norm((document.getElementById("phone_confirm") || {}).value);
+  return a !== "" && a === b;
+}
+
 /* ---------- Countdown ---------- */
 function initCountdown() {
   const localTimeEls = document.querySelectorAll("[data-local-time]");
@@ -2514,6 +2532,9 @@ function initRegistrationForm() {
     if (ph.typed && !ph.ok) {
       return showError("Please check your phone number and make sure the right country is selected (or start it with + and your country code).");
     }
+    const confirmEl = document.getElementById("phone_confirm");
+    if (confirmEl && !confirmEl.value.trim()) return showError("Please type your phone number again in the Confirm phone number box.");
+    if (confirmEl && !phonesMatch()) return showError("The two phone numbers don't match. Please check your WhatsApp number and type it again.");
 
     // Exactly the field names GHL expects (UTM fields are extra and ignored unless mapped)
     const payload = {
