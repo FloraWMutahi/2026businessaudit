@@ -991,6 +991,11 @@ button, input, select {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
 }
 
+/* Reserve my seat links land on the form itself, clear of the fixed nav */
+#registerCard {
+  scroll-margin-top: 84px;
+}
+
 .form-header {
   margin-bottom: 24px;
 }
@@ -1588,7 +1593,7 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
 
       <div class="nav-actions">
         <span class="nav-mini-clock" data-mini-clock aria-live="off">16d 06h 55m</span>
-        <a href="#register" class="btn-gold btn-gold--sm">Reserve my seat</a>
+        <a href="#registerCard" class="btn-gold btn-gold--sm">Reserve my seat</a>
       </div>
     </div>
   </header>
@@ -1645,7 +1650,7 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
         <p class="tz-line">3:00 PM Johannesburg · 2:00 PM Lagos · 1:00 PM London · 5:00 PM Dubai · 8:00 AM New York</p>
 
         <div class="hero-cta-row">
-          <a href="#register" class="btn-gold">Reserve my seat</a>
+          <a href="#registerCard" class="btn-gold">Reserve my seat</a>
           <a href="#audit-areas" class="btn-ghost">Explore the 5-area audit ↓</a>
         </div>
 
@@ -1779,7 +1784,7 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
         </div>
 
         <div style="margin-top: 32px;">
-          <a href="#register" class="btn-gold">Reserve my seat</a>
+          <a href="#registerCard" class="btn-gold">Reserve my seat</a>
         </div>
       </div>
 
@@ -1842,7 +1847,7 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
           <li>30,000+ Entrepreneurs Reached</li>
         </ul>
 
-        <a href="#register" class="btn-gold">Reserve my seat</a>
+        <a href="#registerCard" class="btn-gold">Reserve my seat</a>
       </div>
     </div>
   </section>
@@ -2172,7 +2177,7 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
 
   <div class="mobile-sticky-bar" id="mobileStickyBar">
     <span class="mobile-sticky-bar__clock" data-mini-clock>16d 06h 55m</span>
-    <a href="#register" class="btn-gold btn-gold--sm">Reserve my seat</a>
+    <a href="#registerCard" class="btn-gold btn-gold--sm">Reserve my seat</a>
   </div>
 
   <script>
@@ -2204,6 +2209,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initRegistrationForm();
   initCalendarButtons();
   initBackButton();
+});
+
+// Older links to #register (ads, WhatsApp) also land on the form, not the heading
+window.addEventListener("load", () => {
+  if (location.hash !== "#register") return;
+  const card = document.getElementById("registerCard");
+  if (card) card.scrollIntoView();
 });
 
 /* ---------- Helpers ---------- */
