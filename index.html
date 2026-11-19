@@ -1982,6 +1982,47 @@ body:not(.is-registered) .site-nav:not(.is-scrolled) .nav-links a:hover { color:
             </select>
           </div>
 
+          <!-- Business owner questions: shown only for "Business owner" or "Both" -->
+          <div class="owner-questions" id="ownerQuestions" hidden>
+            <div class="field-group">
+              <label class="field-label" for="business_size">How many people work in your business? *</label>
+              <select class="field-select" id="business_size" name="business_size">
+                <option value="" selected disabled>Select one</option>
+                <option value="1 (just me)">1 (just me)</option>
+                <option value="2 to 10">2 to 10</option>
+                <option value="11 to 50">11 to 50</option>
+                <option value="51 to 200">51 to 200</option>
+                <option value="Over 200">Over 200</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="biggest_frustration_2026">What was your biggest frustration in 2026? *</label>
+              <select class="field-select" id="biggest_frustration_2026" name="biggest_frustration_2026">
+                <option value="" selected disabled>Select one</option>
+                <option value="Too much depends on me">Too much depends on me</option>
+                <option value="Things fall through the cracks between people">Things fall through the cracks between people</option>
+                <option value="Cash flow">Cash flow</option>
+                <option value="Sales are hard to predict">Sales are hard to predict</option>
+                <option value="Hiring or keeping the right people">Hiring or keeping the right people</option>
+                <option value="Growth has stalled">Growth has stalled</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="field-group" id="frustrationOtherGroup" hidden>
+              <label class="field-label" for="frustration_other_details">Tell us briefly *</label>
+              <input class="field-input" type="text" id="frustration_other_details" name="frustration_other_details" maxlength="200" placeholder="e.g. Suppliers keep missing deadlines" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="fix_timeline">How soon do you want to fix this? *</label>
+              <select class="field-select" id="fix_timeline" name="fix_timeline">
+                <option value="" selected disabled>Select one</option>
+                <option value="Before January 2027">Before January 2027</option>
+                <option value="In Q1 2027">In Q1 2027</option>
+                <option value="Just exploring for now">Just exploring for now</option>
+              </select>
+            </div>
+          </div>
+
           <div class="field-group">
             <label class="field-label" for="phone">Phone number * <span class="field-optional">(WhatsApp number preferred)</span></label>
             <input class="field-input" type="tel" id="phone" name="phone" placeholder="+254 712 345 678" autocomplete="tel" required />
@@ -2414,6 +2455,15 @@ function initRegistrationForm() {
           ? "How long have you been running your business? *"
           : "How long have you been in your current business or role? *";
       expGroup.hidden = !v;
+      const ownerBox = document.getElementById("ownerQuestions");
+      if (ownerBox) ownerBox.hidden = !isOwnerProfile(v);
+    });
+  }
+  const frustSel = document.getElementById("biggest_frustration_2026");
+  const otherGroup = document.getElementById("frustrationOtherGroup");
+  if (frustSel && otherGroup) {
+    frustSel.addEventListener("change", () => {
+      otherGroup.hidden = frustSel.value !== "Other";
     });
   }
   const errBox = document.getElementById("formError");
@@ -2443,12 +2493,22 @@ function initRegistrationForm() {
     const ph = readPhone();
     const profile = form.professional_profile ? form.professional_profile.value : "";
     const years = form.years_experience ? form.years_experience.value : "";
+    const isOwner = isOwnerProfile(profile);
+    const bizSize = isOwner ? form.business_size.value : "";
+    const frustration = isOwner ? form.biggest_frustration_2026.value : "";
+    const frustrationOther = isOwner && frustration === "Other"
+      ? form.frustration_other_details.value.trim().slice(0, 200) : "";
+    const timeline = isOwner ? form.fix_timeline.value : "";
 
     if (!firstName) return showError("Please enter your first name.");
     if (!lastName) return showError("Please enter your last name.");
     if (!validEmail(email)) return showError("Please enter a valid email address.");
     if (!profile) return showError("Please choose your professional profile.");
     if (!years) return showError("Please tell us how long you have been in your current business or role.");
+    if (isOwner && !bizSize) return showError("Please tell us how many people work in your business.");
+    if (isOwner && !frustration) return showError("Please choose your biggest frustration in 2026.");
+    if (isOwner && frustration === "Other" && !frustrationOther) return showError("Please tell us briefly what your biggest frustration was.");
+    if (isOwner && !timeline) return showError("Please tell us how soon you want to fix this.");
     if (!ph.typed) return showError("Please enter your phone number.");
     if (!channelEl) return showError("Please choose where we should send your Zoom link and reminders.");
     if (ph.typed && !ph.ok) {
@@ -2463,7 +2523,11 @@ function initRegistrationForm() {
       phone: ph.ok ? ph.phone : "",
       whatsapp_consent: consent ? "Yes" : "No",
       professional_profile: profile,
-      years_experience: years
+      years_experience: years,
+      business_size: bizSize,
+      biggest_frustration_2026: frustration,
+      frustration_other_details: frustrationOther,
+      fix_timeline: timeline
     };
     UTM_KEYS.forEach((k) => { payload[k] = storeGet(k) || ""; });
 
@@ -2482,6 +2546,11 @@ function initRegistrationForm() {
       showError("Something went wrong. Please check your connection and try again.");
     }
   });
+}
+
+// Business owner questions apply to "Business owner" and "Both"
+function isOwnerProfile(v) {
+  return v === "Business owner" || v === "Both";
 }
 
 async function sendToGhl(data) {
